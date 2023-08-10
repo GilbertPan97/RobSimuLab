@@ -1,0 +1,33 @@
+
+INCLUDE_DIRECTORIES(
+${PROJECT_ROOT_DIR}/src
+)
+
+LINK_LIBRARIES(
+	BulletFileLoader
+)
+IF (WIN32)
+	SET(ADDITIONAL_SRC
+		${PROJECT_ROOT_DIR}/build/bullet.rc
+	)
+ENDIF()
+
+SET(READBULLET_SRC
+		main.cpp
+		BulletDataExtractor.cpp
+		BulletDataExtractor.h
+		${PROJECT_ROOT_DIR}/src/LinearMath/btSerializer.cpp
+		${PROJECT_ROOT_DIR}/src/LinearMath/btAlignedAllocator.cpp
+)
+
+ADD_EXECUTABLE(AppReadBulletSample
+	${READBULLET_SRC}
+	${ADDITIONAL_SRC}
+)
+
+
+IF (INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
+			SET_TARGET_PROPERTIES(AppReadBulletSample PROPERTIES  DEBUG_POSTFIX "_Debug")
+			SET_TARGET_PROPERTIES(AppReadBulletSample PROPERTIES  MINSIZEREL_POSTFIX "_MinsizeRel")
+			SET_TARGET_PROPERTIES(AppReadBulletSample PROPERTIES  RELWITHDEBINFO_POSTFIX "_RelWithDebugInfo")
+ENDIF(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
